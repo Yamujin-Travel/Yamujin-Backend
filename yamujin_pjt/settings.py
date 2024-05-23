@@ -2,6 +2,7 @@ from pathlib import Path
 import environ
 import os
 
+# env 파일을 읽어오기 위한 설정
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -16,10 +17,16 @@ GPT_API_KEY = os.environ.get('GPT_API_KEY')
 KAKAO_MAP_API_KEY = os.environ.get('KAKAO_MAP_API_KEY')
 DEBUG = True
 
+# SECURITY WARNING: update this when you have the production host
 ALLOWED_HOSTS = []
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 INSTALLED_APPS = [
+    'accounts',
+    'articles',
+    'exchange',
+    'financial',
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -28,6 +35,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'drf_spectacular',
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    # 'allauth.account.middleware.AccountMiddleware',  
 ]
 
 SITE_ID = 1
@@ -69,7 +77,6 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Yamujin-Travel API',
     'DESCRIPTION': 'Yamujin-Travel API 문서입니다.',
     'VERSION': '1.0.0',
-    'LICENSE': {'name': 'MIT'},
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
@@ -110,8 +117,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yamujin_pjt.wsgi.application'
 
-
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
